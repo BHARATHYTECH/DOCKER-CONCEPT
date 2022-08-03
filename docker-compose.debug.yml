@@ -1,0 +1,20 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  learncsharp:
+    image: learncsharp:leatest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "443:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/cert/learncsharps.pfx
+    volumes:
+      - ./cert:/cert:ro
+
